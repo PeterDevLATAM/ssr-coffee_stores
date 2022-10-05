@@ -1,6 +1,5 @@
 import styles from "./text.module.css";
 export default function Text({ item }) {
-  console.log(item);
   return (
     <div className={styles.card}>
       <h3 className={styles.heading}>Title {item}</h3>

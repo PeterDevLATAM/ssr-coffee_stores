@@ -4,28 +4,25 @@ import Banner from "../components/banner";
 import Card from "../components/card";
 import styles from "../styles/Home.module.css";
 
-import coffeeStoresData from "../data/coffee-store.json";
 import { fetchCoffeeStores } from "../lib/coffee-stores";
 import Text from "../components/text.component";
 
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
+  return {
+    props: { coffeeStores },
+  };
+}
+
+export default function Home(props) {
+  const { coffeeStores } = props;
   const createElements = (ammount) => {
-    console.log(ammount);
     const elements = [];
     for (let i = 0; i < ammount; i++) {
       elements.push(<Text item={i} key={i} />);
     }
     return elements;
   };
-  return {
-    props: { coffeeStores, elements: createElements(1000) },
-  };
-}
-
-export default function Home(props) {
-  const { coffeeStores, elements } = props;
-  // console.log({ coffeeStores });
 
   const handleOnBannerBtnClick = (e) => {
     console.log("Hi banner button");
@@ -62,7 +59,7 @@ export default function Home(props) {
                 );
               })}
             </div>
-            <div className={styles.texts}>{elements}</div>
+            <div className={styles.texts}>{createElements(100)}</div>
           </>
         )}
       </main>
