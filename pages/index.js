@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 
 import coffeeStoresData from "../data/coffee-store.json";
 import { fetchCoffeeStores } from "../lib/coffee-stores";
+import Text from "../components/text.component";
 
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
@@ -17,6 +18,14 @@ export async function getStaticProps(context) {
 export default function Home(props) {
   const { coffeeStores } = props;
   // console.log({ coffeeStores });
+  const createElements = (ammount) => {
+    console.log(ammount);
+    const elements = [];
+    for (let i = 0; i < ammount; i++) {
+      elements.push(<Text item={i} key={i} />);
+    }
+    return elements;
+  };
 
   const handleOnBannerBtnClick = (e) => {
     console.log("Hi banner button");
@@ -53,6 +62,7 @@ export default function Home(props) {
                 );
               })}
             </div>
+            <div className={styles.texts}>{createElements(1000)}</div>
           </>
         )}
       </main>
