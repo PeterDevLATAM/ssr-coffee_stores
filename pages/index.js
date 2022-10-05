@@ -10,14 +10,6 @@ import Text from "../components/text.component";
 
 export async function getStaticProps(context) {
   const coffeeStores = await fetchCoffeeStores();
-  return {
-    props: { coffeeStores },
-  };
-}
-
-export default function Home(props) {
-  const { coffeeStores } = props;
-  // console.log({ coffeeStores });
   const createElements = (ammount) => {
     console.log(ammount);
     const elements = [];
@@ -26,6 +18,14 @@ export default function Home(props) {
     }
     return elements;
   };
+  return {
+    props: { coffeeStores, elements: createElements(1000) },
+  };
+}
+
+export default function Home(props) {
+  const { coffeeStores, elements } = props;
+  // console.log({ coffeeStores });
 
   const handleOnBannerBtnClick = (e) => {
     console.log("Hi banner button");
@@ -62,7 +62,7 @@ export default function Home(props) {
                 );
               })}
             </div>
-            <div className={styles.texts}>{createElements(1000)}</div>
+            <div className={styles.texts}>{elements}</div>
           </>
         )}
       </main>
